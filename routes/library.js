@@ -32,13 +32,14 @@ router.post('/add-author', async function (req, res) {
    * es mediante console.log o el plugin de mongodb o ir a Atlas. 
    * Otra forma es devolver el autor que acabais de crear en formato JSON */
   res.json(createdAuthor);
-  
+
 })
 
 
 router.get('/add-book', async (req, res) => {
-  // Recuperar todos los autores de la coleccion Authors
-  const authors = {} // TODO: Iteración 2
+  // Iteración 2
+  // 1. Recuperar todos los autores de la coleccion Authors
+  const authors = await Author.find();
   res.render('add-book', {
     authors
   })
