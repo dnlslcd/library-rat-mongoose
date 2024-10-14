@@ -3,6 +3,8 @@ var router = express.Router();
 
 const Book = require('../models/book');
 // importar Authors
+const Author = require('../models/author');
+
 
 /* GET users listing. */
 router.get('/add-author', function (req, res, next) {
@@ -13,12 +15,24 @@ router.post('/add-author', async function (req, res) {
   // Iteración 1
 
   // 1. Importar el modelo (Authors) al principio del fichero
+  // const Author = require('../models/author');
 
   // 2. Recuperar todos los campos del POST
+  const { firstName, familyName, dateBirth, dateDeath } = req.body;
 
   // 3. Crear un nuevo documento en base de datos usando Mongoose
+  const createdAuthor = await Author.create({
+    firstName,
+    familyName,
+    dateBirth,
+    dateDeath
+  });
 
-  // La forma que tenéis de momento de comprobar los autores añadidos a la base de datos es mediante console.log o el plugin de mongodb o ir a Atlas. Otra forma es devolver el autor que acabais de crear en formato JSON
+  /** La forma que tenéis de momento de comprobar los autores añadidos a la base de datos 
+   * es mediante console.log o el plugin de mongodb o ir a Atlas. 
+   * Otra forma es devolver el autor que acabais de crear en formato JSON */
+  res.json(createdAuthor);
+  
 })
 
 
